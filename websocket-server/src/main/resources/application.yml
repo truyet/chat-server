@@ -1,0 +1,6 @@
+server:
+    port: 8082
+
+spring:
+  jwt:
+    shared-key: 5vETpkOhKFK2X3uxcOTzpugaN2CpLQlj
