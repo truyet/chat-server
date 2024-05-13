@@ -12,15 +12,16 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 
 @RestControllerAdvice
 class ServiceExceptionHandler extends ResponseEntityExceptionHandler {
-    @ExceptionHandler(ServiceException.class)
-    @ResponseStatus(value=HttpStatus.BAD_REQUEST)
-    public ResponseApi<Void> serviceException(Exception ex, WebRequest request) {
-        return ResponseApi.error(HttpStatus.BAD_REQUEST.value(), ex.getMessage());
-    }
 
-    @ExceptionHandler(AuthenticationException.class)
-    @ResponseStatus(value=HttpStatus.UNAUTHORIZED)
-    public ResponseApi<Void> authenticationException(Exception ex, WebRequest request) {
-        return ResponseApi.error(HttpStatus.UNAUTHORIZED.value(), ex.getMessage());
-    }
+  @ExceptionHandler(ServiceException.class)
+  @ResponseStatus(value = HttpStatus.BAD_REQUEST)
+  public ResponseApi<Void> serviceException(Exception ex, WebRequest request) {
+    return ResponseApi.error(HttpStatus.BAD_REQUEST.value(), ex.getMessage());
+  }
+
+  @ExceptionHandler(AuthenticationException.class)
+  @ResponseStatus(value = HttpStatus.UNAUTHORIZED)
+  public ResponseApi<Void> authenticationException(Exception ex, WebRequest request) {
+    return ResponseApi.error(HttpStatus.UNAUTHORIZED.value(), ex.getMessage());
+  }
 }

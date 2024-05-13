@@ -1,17 +1,17 @@
 plugins {
-	id 'java'
-	id 'org.springframework.boot' version '3.2.5'
-	id 'io.spring.dependency-management' version '1.1.4'
+    id 'java'
+    id 'org.springframework.boot' version '3.2.5'
+    id 'io.spring.dependency-management' version '1.1.4'
 }
 
 dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter-websocket'
-	implementation 'com.nimbusds:nimbus-jose-jwt:9.39'
-	implementation project(":commonlib")
+    implementation 'org.springframework.boot:spring-boot-starter-websocket'
+    implementation 'com.nimbusds:nimbus-jose-jwt:9.39'
+    implementation project(":commonlib")
 
-	compileOnly 'org.projectlombok:lombok'
-	annotationProcessor 'org.projectlombok:lombok'
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-	testImplementation 'io.projectreactor:reactor-test'
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'io.projectreactor:reactor-test'
 }
 

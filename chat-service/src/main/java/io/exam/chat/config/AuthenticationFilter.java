@@ -1,17 +1,13 @@
 package io.exam.chat.config;
 
-import com.nimbusds.jose.JOSEException;
 import io.exam.auth.JWTAuth;
 import io.exam.auth.UserContext;
 import io.exam.auth.UserContext.UserInfo;
-import io.exam.errors.AuthenticationException;
-import io.exam.errors.ServiceException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.text.ParseException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.util.AntPathMatcher;
@@ -26,7 +22,8 @@ public class AuthenticationFilter extends OncePerRequestFilter {
     this.jwtAuth = jwtAuth;
   }
 
-  protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
+  protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
+      FilterChain filterChain)
       throws ServletException, IOException {
     AntPathMatcher pathMatcher = new AntPathMatcher();
     if (pathMatcher.match("/swagger-ui/**", request.getServletPath())) {
@@ -50,13 +47,14 @@ public class AuthenticationFilter extends OncePerRequestFilter {
     var token = authVal.substring(7);
     try {
       var payload = jwtAuth.decode(token);
-      UserContext.setUser(UserInfo.builder().userId(Long.parseLong(payload.getStringClaim("sub"))).username(payload.getStringClaim("username")).build());
+      UserContext.setUser(UserInfo.builder().userId(Long.parseLong(payload.getStringClaim("sub")))
+          .username(payload.getStringClaim("username")).build());
     } catch (Exception e) {
       response.setStatus(HttpStatus.UNAUTHORIZED.value());
       return;
     }
     filterChain.doFilter(request, response);
 
-}
+  }
 
 }

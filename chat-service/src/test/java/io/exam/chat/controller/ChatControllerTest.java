@@ -6,7 +6,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -20,30 +19,20 @@ import io.exam.chat.domain.Message;
 import io.exam.chat.enums.MessageType;
 import io.exam.chat.repositories.MessageRepository;
 import io.exam.chat.service.MessageService;
-
+import io.exam.rest.ResponseApi;
 import java.text.ParseException;
 import java.time.Instant;
-import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
-
-import io.exam.rest.ResponseApi;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.AutoConfigureDataJpa;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
@@ -81,22 +70,26 @@ class ChatControllerTest {
   private Message message;
   private String token = "";
   private ObjectMapper objectMapper = new ObjectMapper();
+
   @BeforeEach
   void setUp() throws ParseException, JOSEException {
-    token = jwtAuth.encode(JWTClaimsSet.parse(Map.of("sub", 1, "username", "user1", "exp", System.currentTimeMillis() / 1000 + 3600)));
+    token = jwtAuth.encode(JWTClaimsSet.parse(
+        Map.of("sub", 1, "username", "user1", "exp", System.currentTimeMillis() / 1000 + 3600)));
   }
 
   @Test
   void sendMessage() throws Exception {
     MessageBody messageBody = new MessageBody("message", MessageType.TEXT);
     var resp = this.mvc.perform(MockMvcRequestBuilders.post("/message")
-                    .header("Authorization", "Bearer " + token)
-                    .accept(MediaType.APPLICATION_JSON)
-                    .contentType(MediaType.APPLICATION_JSON)
-                    .content(objectMapper.writeValueAsBytes(messageBody)))
-            .andExpect(MockMvcResultMatchers.status().isOk()).andReturn();
+            .header("Authorization", "Bearer " + token)
+            .accept(MediaType.APPLICATION_JSON)
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(objectMapper.writeValueAsBytes(messageBody)))
+        .andExpect(MockMvcResultMatchers.status().isOk()).andReturn();
 
-    var body = objectMapper.readValue(resp.getResponse().getContentAsString(), new TypeReference<ResponseApi<MessageResp>>() {});
+    var body = objectMapper.readValue(resp.getResponse().getContentAsString(),
+        new TypeReference<ResponseApi<MessageResp>>() {
+        });
 
     assertTrue(body.getData().getId() > 0);
     assertEquals(messageBody.message(), body.getData().getMessage());
@@ -107,10 +100,10 @@ class ChatControllerTest {
   void sendMessage_withoutToken_shouldReturn401() throws Exception {
     MessageBody messageBody = new MessageBody("message", MessageType.TEXT);
     this.mvc.perform(MockMvcRequestBuilders.post("/message")
-                    .accept(MediaType.APPLICATION_JSON)
-                    .contentType(MediaType.APPLICATION_JSON)
-                    .content(objectMapper.writeValueAsBytes(messageBody)))
-            .andExpect(MockMvcResultMatchers.status().isUnauthorized());
+            .accept(MediaType.APPLICATION_JSON)
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(objectMapper.writeValueAsBytes(messageBody)))
+        .andExpect(MockMvcResultMatchers.status().isUnauthorized());
 
   }
 
@@ -118,16 +111,20 @@ class ChatControllerTest {
   void messageRetrieval() throws Exception {
     var from = Instant.now().minusSeconds(100).toEpochMilli();
     var size = 100;
-    messageRepository.save(Message.builder().message("Hello").room("default").senderId(1L).senderName("user1").type(MessageType.TEXT).createdAt(ZonedDateTime.now()).build());
+    messageRepository.save(
+        Message.builder().message("Hello").room("default").senderId(1L).senderName("user1")
+            .type(MessageType.TEXT).createdAt(ZonedDateTime.now()).build());
 
     var resp = this.mvc.perform(MockMvcRequestBuilders.get("/message")
-                    .queryParam("from", String.valueOf(from)).queryParam("size", String.valueOf(size))
-                    .header("Authorization", "Bearer " + token)
-                    .accept(MediaType.APPLICATION_JSON)
-                    .contentType(MediaType.APPLICATION_JSON))
-            .andExpect(MockMvcResultMatchers.status().isOk()).andReturn();
+            .queryParam("from", String.valueOf(from)).queryParam("size", String.valueOf(size))
+            .header("Authorization", "Bearer " + token)
+            .accept(MediaType.APPLICATION_JSON)
+            .contentType(MediaType.APPLICATION_JSON))
+        .andExpect(MockMvcResultMatchers.status().isOk()).andReturn();
 
-    var body = objectMapper.readValue(resp.getResponse().getContentAsString(), new TypeReference<ResponseApi<List<MessageResp>>>() {});
+    var body = objectMapper.readValue(resp.getResponse().getContentAsString(),
+        new TypeReference<ResponseApi<List<MessageResp>>>() {
+        });
     assertThat(body.getData().size()).isEqualTo(1);
   }
 

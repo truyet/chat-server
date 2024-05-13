@@ -1,7 +1,6 @@
 package io.exam.auth;
 
 import java.security.Principal;
-import java.util.function.Supplier;
 import javax.security.auth.Subject;
 import lombok.Builder;
 import lombok.Data;
@@ -21,6 +20,7 @@ public class UserContext {
   @Builder
   @Data
   public static class UserInfo implements Principal {
+
     private long userId;
     private String username;
 

@@ -1,47 +1,46 @@
 plugins {
-	id 'java'
-	id 'jacoco'
-	id 'org.springframework.boot' version '3.2.5'
-	id 'io.spring.dependency-management' version '1.1.4'
-	id 'com.google.cloud.tools.jib' version '3.4.0'
+    id 'java'
+    id 'jacoco'
+    id 'org.springframework.boot' version '3.2.5'
+    id 'io.spring.dependency-management' version '1.1.4'
+    id 'com.google.cloud.tools.jib' version '3.4.0'
 }
 
 //version = '0.0.1-SNAPSHOT'
 
 
-
 allprojects {
-	group = 'io.exam'
-	java {
-		sourceCompatibility = '17'
-	}
+    group = 'io.exam'
+    java {
+        sourceCompatibility = '17'
+    }
 
-	apply plugin: 'java'
-	apply plugin: 'jacoco'
-	apply plugin: 'io.spring.dependency-management'
+    apply plugin: 'java'
+    apply plugin: 'jacoco'
+    apply plugin: 'io.spring.dependency-management'
 
-	repositories {
-		mavenCentral()
-	}
+    repositories {
+        mavenCentral()
+    }
 
-	configurations {
-		compileOnly {
-			extendsFrom annotationProcessor
-		}
-	}
+    configurations {
+        compileOnly {
+            extendsFrom annotationProcessor
+        }
+    }
 
-	dependencies {
-		compileOnly 'org.projectlombok:lombok'
-		annotationProcessor 'org.projectlombok:lombok'
-	}
+    dependencies {
+        compileOnly 'org.projectlombok:lombok'
+        annotationProcessor 'org.projectlombok:lombok'
+    }
 
-	test {
-		useJUnitPlatform()
-		finalizedBy jacocoTestReport // report is always generated after tests run
-	}
-	jacocoTestReport {
-		dependsOn test // tests are required to run before generating the report
-	}
+    test {
+        useJUnitPlatform()
+        finalizedBy jacocoTestReport // report is always generated after tests run
+    }
+    jacocoTestReport {
+        dependsOn test // tests are required to run before generating the report
+    }
 
 
 }

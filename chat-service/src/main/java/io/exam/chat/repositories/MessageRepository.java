@@ -8,7 +8,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
-public interface MessageRepository extends CrudRepository<Message, Long>, PagingAndSortingRepository<Message, Long> {
+public interface MessageRepository extends CrudRepository<Message, Long>,
+    PagingAndSortingRepository<Message, Long> {
 
   @Query("FROM Message m WHERE m.room = :room AND m.createdAt > :from")
   List<Message> findAllByRoomFromTime(String room, ZonedDateTime from, Pageable pageable);

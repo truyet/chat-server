@@ -45,19 +45,21 @@ public class ChatController {
   }
 
   @GetMapping("/message")
-  public ResponseApi<List<MessageResp>> messageRetrieval(@RequestParam("from") long from, @RequestParam(name = "size", defaultValue = "100") int size) {
-    var histories = messageService.historiesDefaultRoom(ZonedDateTime.ofInstant(Instant.ofEpochMilli(from),
-        ZoneId.systemDefault()), size);
+  public ResponseApi<List<MessageResp>> messageRetrieval(@RequestParam("from") long from,
+      @RequestParam(name = "size", defaultValue = "100") int size) {
+    var histories = messageService.historiesDefaultRoom(
+        ZonedDateTime.ofInstant(Instant.ofEpochMilli(from),
+            ZoneId.systemDefault()), size);
 
     var resp = histories.stream().map(msg -> {
       var builder = MessageResp.builder().id(msg.getId());
       if (msg.getDeletedAt() == null) {
         builder.senderId(msg.getSenderId())
-                .senderName(msg.getSenderName())
-                .room(msg.getRoom())
-                .message(msg.getMessage())
-                .type(msg.getType())
-                .createdAt(msg.getCreatedAt().toInstant().toEpochMilli());
+            .senderName(msg.getSenderName())
+            .room(msg.getRoom())
+            .message(msg.getMessage())
+            .type(msg.getType())
+            .createdAt(msg.getCreatedAt().toInstant().toEpochMilli());
       } else {
         builder.deletedAt(msg.getDeletedAt().toInstant().toEpochMilli());
       }
@@ -70,8 +72,8 @@ public class ChatController {
   public ResponseApi<MessageResp> sendMessage(@PathVariable("id") Long id) {
     var msg = messageService.delete(id);
     var builder = MessageResp.builder()
-            .id(msg.getId())
-            .deletedAt(msg.getDeletedAt().toInstant().toEpochMilli());
+        .id(msg.getId())
+        .deletedAt(msg.getDeletedAt().toInstant().toEpochMilli());
 
     var msgResp = builder.build();
     template.convertAndSend("/topic/default", msgResp);

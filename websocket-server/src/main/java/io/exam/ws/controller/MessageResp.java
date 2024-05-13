@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class MessageResp {
+
   private long id;
   private long senderId;
   private String senderName;

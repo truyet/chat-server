@@ -21,7 +21,8 @@ public class AuthenticationFilter extends OncePerRequestFilter {
     this.jwtAuth = jwtAuth;
   }
 
-  protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
+  protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
+      FilterChain filterChain)
       throws ServletException, IOException {
     var authVal = request.getHeader(HttpHeaders.AUTHORIZATION);
     if (!authVal.startsWith("Bearer ")) {
@@ -31,12 +32,13 @@ public class AuthenticationFilter extends OncePerRequestFilter {
     var token = authVal.substring(7);
     try {
       var payload = jwtAuth.decode(token);
-      UserContext.setUser(UserInfo.builder().userId(payload.getLongClaim("sub")).username(payload.getStringClaim("username")).build());
+      UserContext.setUser(UserInfo.builder().userId(payload.getLongClaim("sub"))
+          .username(payload.getStringClaim("username")).build());
     } catch (Exception e) {
       throw new AuthenticationException("INVALID_TOKEN");
     }
     filterChain.doFilter(request, response);
 
-}
+  }
 
 }

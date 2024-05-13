@@ -3,7 +3,6 @@ package io.exam.auth.controller;
 import io.exam.auth.controller.body.LoginBody;
 import io.exam.auth.domain.TokenInfo;
 import io.exam.auth.service.AuthService;
-
 import io.exam.rest.ResponseApi;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;

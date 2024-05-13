@@ -2,7 +2,6 @@ package io.exam.chat.domain;
 
 import io.exam.chat.enums.MessageType;
 import jakarta.persistence.Entity;
-import jakarta.persistence.EntityListeners;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
@@ -13,8 +12,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @Builder
 @Data
@@ -22,6 +19,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @AllArgsConstructor
 @Entity
 public class Message {
+
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   private long id;

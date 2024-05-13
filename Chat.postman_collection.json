@@ -1,465 +1,465 @@
 {
-	"info": {
-		"_postman_id": "7710fc17-70a4-4662-bca3-66896191bbb9",
-		"name": "Chat",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "1404775",
-		"_collection_link": "https://interstellar-robot-370454.postman.co/workspace/Goonma~6674ce0e-20a7-407e-b16b-9ffc81688286/collection/1404775-7710fc17-70a4-4662-bca3-66896191bbb9?action=share&source=collection_link&creator=1404775"
-	},
-	"item": [
-		{
-			"name": "message Retrieval",
-			"request": {
-				"method": "GET",
-				"header": [
-					{
-						"key": "Accept",
-						"value": "*/*"
-					},
-					{
-						"key": "Authorization",
-						"value": "Bearer {{accessToken}}"
-					}
-				],
-				"url": {
-					"raw": "{{baseUrl}}/api/chat/message?from=1715506104000&size=100",
-					"host": [
-						"{{baseUrl}}"
-					],
-					"path": [
-						"api",
-						"chat",
-						"message"
-					],
-					"query": [
-						{
-							"key": "from",
-							"value": "1715506104000",
-							"description": "(Required) "
-						},
-						{
-							"key": "size",
-							"value": "100"
-						}
-					]
-				}
-			},
-			"response": [
-				{
-					"name": "OK",
-					"originalRequest": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Accept",
-								"value": "*/*"
-							}
-						],
-						"url": {
-							"raw": "{{baseUrl}}/api/chat/message?from=<long>&size=100",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"api",
-								"chat",
-								"message"
-							],
-							"query": [
-								{
-									"key": "from",
-									"value": "<long>",
-									"description": "(Required) "
-								},
-								{
-									"key": "size",
-									"value": "100"
-								}
-							]
-						}
-					},
-					"status": "OK",
-					"code": 200,
-					"_postman_previewlanguage": "text",
-					"header": [
-						{
-							"key": "Content-Type",
-							"value": "*/*"
-						}
-					],
-					"cookie": [],
-					"body": "{\n  \"code\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"data\": [\n    {\n      \"id\": \"<long>\",\n      \"senderId\": \"<long>\",\n      \"senderName\": \"<string>\",\n      \"room\": \"<string>\",\n      \"message\": \"<string>\",\n      \"type\": \"TEXT\",\n      \"createdAt\": \"<dateTime>\"\n    },\n    {\n      \"id\": \"<long>\",\n      \"senderId\": \"<long>\",\n      \"senderName\": \"<string>\",\n      \"room\": \"<string>\",\n      \"message\": \"<string>\",\n      \"type\": \"TEXT\",\n      \"createdAt\": \"<dateTime>\"\n    }\n  ]\n}"
-				},
-				{
-					"name": "Bad Request",
-					"originalRequest": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Accept",
-								"value": "*/*"
-							}
-						],
-						"url": {
-							"raw": "{{baseUrl}}/api/chat/message?from=<long>&size=100",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"api",
-								"chat",
-								"message"
-							],
-							"query": [
-								{
-									"key": "from",
-									"value": "<long>",
-									"description": "(Required) "
-								},
-								{
-									"key": "size",
-									"value": "100"
-								}
-							]
-						}
-					},
-					"status": "Bad Request",
-					"code": 400,
-					"_postman_previewlanguage": "text",
-					"header": [
-						{
-							"key": "Content-Type",
-							"value": "*/*"
-						}
-					],
-					"cookie": [],
-					"body": "{\n  \"code\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"data\": {}\n}"
-				},
-				{
-					"name": "Unauthorized",
-					"originalRequest": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Accept",
-								"value": "*/*"
-							}
-						],
-						"url": {
-							"raw": "{{baseUrl}}/api/chat/message?from=<long>&size=100",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"api",
-								"chat",
-								"message"
-							],
-							"query": [
-								{
-									"key": "from",
-									"value": "<long>",
-									"description": "(Required) "
-								},
-								{
-									"key": "size",
-									"value": "100"
-								}
-							]
-						}
-					},
-					"status": "Unauthorized",
-					"code": 401,
-					"_postman_previewlanguage": "text",
-					"header": [
-						{
-							"key": "Content-Type",
-							"value": "*/*"
-						}
-					],
-					"cookie": [],
-					"body": "{\n  \"code\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"data\": {}\n}"
-				}
-			]
-		},
-		{
-			"name": "send Message",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json"
-					},
-					{
-						"key": "Accept",
-						"value": "*/*"
-					},
-					{
-						"key": "Authorization",
-						"value": "Bearer {{accessToken}}"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n  \"message\": \"Hello\",\n  \"type\": \"TEXT\"\n}",
-					"options": {
-						"raw": {
-							"headerFamily": "json",
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "{{baseUrl}}/api/chat/message",
-					"host": [
-						"{{baseUrl}}"
-					],
-					"path": [
-						"api",
-						"chat",
-						"message"
-					]
-				}
-			},
-			"response": [
-				{
-					"name": "OK",
-					"originalRequest": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json"
-							},
-							{
-								"key": "Accept",
-								"value": "*/*"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"message\": \"<string>\",\n  \"type\": \"TEXT\",\n  \"createdAt\": \"<dateTime>\"\n}",
-							"options": {
-								"raw": {
-									"headerFamily": "json",
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{baseUrl}}/api/chat/message",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"api",
-								"chat",
-								"message"
-							]
-						}
-					},
-					"status": "OK",
-					"code": 200,
-					"_postman_previewlanguage": "text",
-					"header": [
-						{
-							"key": "Content-Type",
-							"value": "*/*"
-						}
-					],
-					"cookie": [],
-					"body": "{\n  \"code\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"data\": {\n    \"id\": \"<long>\",\n    \"senderId\": \"<long>\",\n    \"senderName\": \"<string>\",\n    \"room\": \"<string>\",\n    \"message\": \"<string>\",\n    \"type\": \"TEXT\",\n    \"createdAt\": \"<dateTime>\"\n  }\n}"
-				},
-				{
-					"name": "Bad Request",
-					"originalRequest": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json"
-							},
-							{
-								"key": "Accept",
-								"value": "*/*"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"message\": \"<string>\",\n  \"type\": \"TEXT\",\n  \"createdAt\": \"<dateTime>\"\n}",
-							"options": {
-								"raw": {
-									"headerFamily": "json",
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{baseUrl}}/api/chat/message",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"api",
-								"chat",
-								"message"
-							]
-						}
-					},
-					"status": "Bad Request",
-					"code": 400,
-					"_postman_previewlanguage": "text",
-					"header": [
-						{
-							"key": "Content-Type",
-							"value": "*/*"
-						}
-					],
-					"cookie": [],
-					"body": "{\n  \"code\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"data\": {}\n}"
-				},
-				{
-					"name": "Unauthorized",
-					"originalRequest": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json"
-							},
-							{
-								"key": "Accept",
-								"value": "*/*"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"message\": \"<string>\",\n  \"type\": \"TEXT\",\n  \"createdAt\": \"<dateTime>\"\n}",
-							"options": {
-								"raw": {
-									"headerFamily": "json",
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{baseUrl}}/api/chat/message",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"api",
-								"chat",
-								"message"
-							]
-						}
-					},
-					"status": "Unauthorized",
-					"code": 401,
-					"_postman_previewlanguage": "text",
-					"header": [
-						{
-							"key": "Content-Type",
-							"value": "*/*"
-						}
-					],
-					"cookie": [],
-					"body": "{\n  \"code\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"data\": {}\n}"
-				}
-			]
-		},
-		{
-			"name": "Websocket",
-			"request": {
-				"method": "GET",
-				"header": []
-			},
-			"response": []
-		},
-		{
-			"name": "Login",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"let jsonData = pm.response.json();",
-							"pm.collectionVariables.set(\"accessToken\", jsonData.data.accessToken);"
-						],
-						"type": "text/javascript",
-						"packages": {}
-					}
-				}
-			],
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "accept",
-						"value": "*/*"
-					},
-					{
-						"key": "Content-Type",
-						"value": "application/json"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n  \"username\": \"admin\",\n  \"password\": \"123456\"\n}"
-				},
-				"url": {
-					"raw": "{{loginUrl}}/api/auth/login",
-					"host": [
-						"{{loginUrl}}"
-					],
-					"path": [
-						"api",
-						"auth",
-						"login"
-					]
-				}
-			},
-			"response": []
-		}
-	],
-	"event": [
-		{
-			"listen": "prerequest",
-			"script": {
-				"type": "text/javascript",
-				"packages": {},
-				"exec": [
-					""
-				]
-			}
-		},
-		{
-			"listen": "test",
-			"script": {
-				"type": "text/javascript",
-				"packages": {},
-				"exec": [
-					""
-				]
-			}
-		}
-	],
-	"variable": [
-		{
-			"key": "baseUrl",
-			"value": "http://localhost:8081",
-			"type": "string"
-		},
-		{
-			"key": "loginUrl",
-			"value": "http://localhost:8080",
-			"type": "string"
-		},
-		{
-			"key": "accessToken",
-			"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwiZXhwIjoxNzE1NTkzNjQ5LCJ1c2VybmFtZSI6ImFkbWluIn0.2__iuNlEXqnM8FcGUOVE_8jVyXk7h2099Hm5r8JYQjY",
-			"type": "string"
-		}
-	]
+  "info": {
+    "_postman_id": "7710fc17-70a4-4662-bca3-66896191bbb9",
+    "name": "Chat",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "1404775",
+    "_collection_link": "https://interstellar-robot-370454.postman.co/workspace/Goonma~6674ce0e-20a7-407e-b16b-9ffc81688286/collection/1404775-7710fc17-70a4-4662-bca3-66896191bbb9?action=share&source=collection_link&creator=1404775"
+  },
+  "item": [
+    {
+      "name": "message Retrieval",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "*/*"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{accessToken}}"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/chat/message?from=1715506104000&size=100",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "chat",
+            "message"
+          ],
+          "query": [
+            {
+              "key": "from",
+              "value": "1715506104000",
+              "description": "(Required) "
+            },
+            {
+              "key": "size",
+              "value": "100"
+            }
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "OK",
+          "originalRequest": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "*/*"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/chat/message?from=<long>&size=100",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "chat",
+                "message"
+              ],
+              "query": [
+                {
+                  "key": "from",
+                  "value": "<long>",
+                  "description": "(Required) "
+                },
+                {
+                  "key": "size",
+                  "value": "100"
+                }
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "text",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "*/*"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n  \"code\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"data\": [\n    {\n      \"id\": \"<long>\",\n      \"senderId\": \"<long>\",\n      \"senderName\": \"<string>\",\n      \"room\": \"<string>\",\n      \"message\": \"<string>\",\n      \"type\": \"TEXT\",\n      \"createdAt\": \"<dateTime>\"\n    },\n    {\n      \"id\": \"<long>\",\n      \"senderId\": \"<long>\",\n      \"senderName\": \"<string>\",\n      \"room\": \"<string>\",\n      \"message\": \"<string>\",\n      \"type\": \"TEXT\",\n      \"createdAt\": \"<dateTime>\"\n    }\n  ]\n}"
+        },
+        {
+          "name": "Bad Request",
+          "originalRequest": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "*/*"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/chat/message?from=<long>&size=100",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "chat",
+                "message"
+              ],
+              "query": [
+                {
+                  "key": "from",
+                  "value": "<long>",
+                  "description": "(Required) "
+                },
+                {
+                  "key": "size",
+                  "value": "100"
+                }
+              ]
+            }
+          },
+          "status": "Bad Request",
+          "code": 400,
+          "_postman_previewlanguage": "text",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "*/*"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n  \"code\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"data\": {}\n}"
+        },
+        {
+          "name": "Unauthorized",
+          "originalRequest": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "*/*"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/chat/message?from=<long>&size=100",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "chat",
+                "message"
+              ],
+              "query": [
+                {
+                  "key": "from",
+                  "value": "<long>",
+                  "description": "(Required) "
+                },
+                {
+                  "key": "size",
+                  "value": "100"
+                }
+              ]
+            }
+          },
+          "status": "Unauthorized",
+          "code": 401,
+          "_postman_previewlanguage": "text",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "*/*"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n  \"code\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"data\": {}\n}"
+        }
+      ]
+    },
+    {
+      "name": "send Message",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Accept",
+            "value": "*/*"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{accessToken}}"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"message\": \"Hello\",\n  \"type\": \"TEXT\"\n}",
+          "options": {
+            "raw": {
+              "headerFamily": "json",
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/chat/message",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "chat",
+            "message"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "OK",
+          "originalRequest": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "*/*"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"message\": \"<string>\",\n  \"type\": \"TEXT\",\n  \"createdAt\": \"<dateTime>\"\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/chat/message",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "chat",
+                "message"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "text",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "*/*"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n  \"code\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"data\": {\n    \"id\": \"<long>\",\n    \"senderId\": \"<long>\",\n    \"senderName\": \"<string>\",\n    \"room\": \"<string>\",\n    \"message\": \"<string>\",\n    \"type\": \"TEXT\",\n    \"createdAt\": \"<dateTime>\"\n  }\n}"
+        },
+        {
+          "name": "Bad Request",
+          "originalRequest": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "*/*"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"message\": \"<string>\",\n  \"type\": \"TEXT\",\n  \"createdAt\": \"<dateTime>\"\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/chat/message",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "chat",
+                "message"
+              ]
+            }
+          },
+          "status": "Bad Request",
+          "code": 400,
+          "_postman_previewlanguage": "text",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "*/*"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n  \"code\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"data\": {}\n}"
+        },
+        {
+          "name": "Unauthorized",
+          "originalRequest": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "*/*"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"message\": \"<string>\",\n  \"type\": \"TEXT\",\n  \"createdAt\": \"<dateTime>\"\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/chat/message",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "chat",
+                "message"
+              ]
+            }
+          },
+          "status": "Unauthorized",
+          "code": 401,
+          "_postman_previewlanguage": "text",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "*/*"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n  \"code\": \"<integer>\",\n  \"message\": \"<string>\",\n  \"data\": {}\n}"
+        }
+      ]
+    },
+    {
+      "name": "Websocket",
+      "request": {
+        "method": "GET",
+        "header": []
+      },
+      "response": []
+    },
+    {
+      "name": "Login",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "let jsonData = pm.response.json();",
+              "pm.collectionVariables.set(\"accessToken\", jsonData.data.accessToken);"
+            ],
+            "type": "text/javascript",
+            "packages": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "accept",
+            "value": "*/*"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"username\": \"admin\",\n  \"password\": \"123456\"\n}"
+        },
+        "url": {
+          "raw": "{{loginUrl}}/api/auth/login",
+          "host": [
+            "{{loginUrl}}"
+          ],
+          "path": [
+            "api",
+            "auth",
+            "login"
+          ]
+        }
+      },
+      "response": []
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8081",
+      "type": "string"
+    },
+    {
+      "key": "loginUrl",
+      "value": "http://localhost:8080",
+      "type": "string"
+    },
+    {
+      "key": "accessToken",
+      "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwiZXhwIjoxNzE1NTkzNjQ5LCJ1c2VybmFtZSI6ImFkbWluIn0.2__iuNlEXqnM8FcGUOVE_8jVyXk7h2099Hm5r8JYQjY",
+      "type": "string"
+    }
+  ]
 }

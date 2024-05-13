@@ -1,13 +1,12 @@
-
-apply plugin:'org.springframework.boot'
+apply plugin: 'org.springframework.boot'
 
 dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter-web'
-	implementation 'com.nimbusds:nimbus-jose-jwt:9.39'
-	implementation project(":commonlib")
-	implementation project(":auth-service")
-	implementation project(":chat-service")
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'com.nimbusds:nimbus-jose-jwt:9.39'
+    implementation project(":commonlib")
+    implementation project(":auth-service")
+    implementation project(":chat-service")
 
-	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.5.0'
+    implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.5.0'
 }
 

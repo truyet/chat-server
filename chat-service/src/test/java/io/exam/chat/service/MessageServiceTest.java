@@ -2,34 +2,20 @@ package io.exam.chat.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 
 import io.exam.auth.UserContext;
 import io.exam.chat.config.BeanConfig;
 import io.exam.chat.domain.Message;
 import io.exam.chat.enums.MessageType;
 import io.exam.chat.repositories.MessageRepository;
-import io.exam.chat.service.MessageService;
 import java.time.ZonedDateTime;
-import java.util.List;
-
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.AutoConfigureDataJpa;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -93,7 +79,9 @@ class MessageServiceTest {
     var fromTime = ZonedDateTime.now().minusMinutes(1);
     var size = 10;
 
-    messageRepository.save(Message.builder().message("Hello").room("default").senderId(1L).senderName("user1").type(MessageType.TEXT).createdAt(ZonedDateTime.now()).build());
+    messageRepository.save(
+        Message.builder().message("Hello").room("default").senderId(1L).senderName("user1")
+            .type(MessageType.TEXT).createdAt(ZonedDateTime.now()).build());
 
     var messages = messageService.historiesDefaultRoom(fromTime, size);
 
@@ -106,7 +94,9 @@ class MessageServiceTest {
     var fromTime = ZonedDateTime.now().minusMinutes(1);
     var size = 10;
 
-    messageRepository.save(Message.builder().message("Hello").room(room).senderId(1L).senderName("user1").type(MessageType.TEXT).createdAt(ZonedDateTime.now()).build());
+    messageRepository.save(
+        Message.builder().message("Hello").room(room).senderId(1L).senderName("user1")
+            .type(MessageType.TEXT).createdAt(ZonedDateTime.now()).build());
 
     var messages = messageService.historiesRoom(room, fromTime, size);
 

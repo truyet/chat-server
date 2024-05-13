@@ -8,12 +8,12 @@ import org.springframework.stereotype.Controller;
 @Controller
 public class MessageController {
 
-	private SimpMessagingTemplate template;
+  private SimpMessagingTemplate template;
 
-	@MessageMapping("/default")
-	@SendTo("/topic/default")
-	public MessageResp sendMessage(MessageBody msg) throws Exception {
-		return MessageResp.builder().message(msg.message()).type(msg.type()).build();
-	}
+  @MessageMapping("/default")
+  @SendTo("/topic/default")
+  public MessageResp sendMessage(MessageBody msg) throws Exception {
+    return MessageResp.builder().message(msg.message()).type(msg.type()).build();
+  }
 
 }

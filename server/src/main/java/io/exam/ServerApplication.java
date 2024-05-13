@@ -7,12 +7,12 @@ import org.springframework.context.annotation.FilterType;
 
 
 @SpringBootApplication
-@ComponentScan(basePackages = { "io.exam" },
-		excludeFilters = @ComponentScan.Filter(type = FilterType.ASPECTJ, pattern = "io.exam.chat.config || io.exam.auth.config"))
+@ComponentScan(basePackages = {"io.exam"},
+    excludeFilters = @ComponentScan.Filter(type = FilterType.ASPECTJ, pattern = "io.exam.chat.config || io.exam.auth.config"))
 public class ServerApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(ServerApplication.class, args);
-	}
+  public static void main(String[] args) {
+    SpringApplication.run(ServerApplication.class, args);
+  }
 
 }
