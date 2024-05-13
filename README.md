@@ -37,10 +37,10 @@ You also build container images with command `./gradlew {service}:jibDockerBuild
 - `auth-service` : http://localhost:8080/api/auth/swagger-ui/index.html
 - `chat-service` : http://localhost:8081/api/chat/swagger-ui/index.html
 
-Postman collections:
+[Postman collections](https://raw.githubusercontent.com/truyet/chat-server/main/Chat.postman_collection.json)
 
 ## Next Plan
 
-- [] Enhance login method and token issue
-- [] Separate `websocket-server` from `chat-service` to standalone service and communication with
+- [ ] Enhance login method and token issue
+- [ ] Separate `websocket-server` from `chat-service` to standalone service and communication with
   chat service use message queue  
