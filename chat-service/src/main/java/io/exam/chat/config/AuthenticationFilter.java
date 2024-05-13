@@ -29,7 +29,7 @@ public class AuthenticationFilter extends OncePerRequestFilter {
   protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
       throws ServletException, IOException {
     AntPathMatcher pathMatcher = new AntPathMatcher();
-    if (pathMatcher.match("/swagger-ui/**", request.getRequestURI())) {
+    if (pathMatcher.match("/swagger-ui/**", request.getServletPath())) {
       filterChain.doFilter(request, response);
       return;
     }
@@ -37,7 +37,7 @@ public class AuthenticationFilter extends OncePerRequestFilter {
       filterChain.doFilter(request, response);
       return;
     }
-    if (pathMatcher.match("/ws", request.getRequestURI())) {
+    if (pathMatcher.match("/ws", request.getServletPath())) {
       filterChain.doFilter(request, response);
       return;
     }
