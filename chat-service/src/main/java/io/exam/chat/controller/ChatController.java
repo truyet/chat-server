@@ -10,7 +10,9 @@ import java.time.ZonedDateTime;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping()
+@RequestMapping("")
 public class ChatController {
 
   private final MessageService messageService;
@@ -47,16 +49,33 @@ public class ChatController {
     var histories = messageService.historiesDefaultRoom(ZonedDateTime.ofInstant(Instant.ofEpochMilli(from),
         ZoneId.systemDefault()), size);
 
-    var resp = histories.stream().map(msg -> MessageResp.builder()
-          .id(msg.getId())
-          .senderId(msg.getSenderId())
-          .senderName(msg.getSenderName())
-          .room(msg.getRoom())
-          .message(msg.getMessage())
-          .type(msg.getType())
-          .createdAt(msg.getCreatedAt().toInstant().toEpochMilli())
-          .build()).toList();
+    var resp = histories.stream().map(msg -> {
+      var builder = MessageResp.builder().id(msg.getId());
+      if (msg.getDeletedAt() == null) {
+        builder.senderId(msg.getSenderId())
+                .senderName(msg.getSenderName())
+                .room(msg.getRoom())
+                .message(msg.getMessage())
+                .type(msg.getType())
+                .createdAt(msg.getCreatedAt().toInstant().toEpochMilli());
+      } else {
+        builder.deletedAt(msg.getDeletedAt().toInstant().toEpochMilli());
+      }
+      return builder.build();
+    }).toList();
     return ResponseApi.success(resp);
+  }
+
+  @DeleteMapping("/message/{id}")
+  public ResponseApi<MessageResp> sendMessage(@PathVariable("id") Long id) {
+    var msg = messageService.delete(id);
+    var builder = MessageResp.builder()
+            .id(msg.getId())
+            .deletedAt(msg.getDeletedAt().toInstant().toEpochMilli());
+
+    var msgResp = builder.build();
+    template.convertAndSend("/topic/default", msgResp);
+    return ResponseApi.success(msgResp);
   }
 
 

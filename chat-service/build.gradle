@@ -18,6 +18,17 @@ dependencies {
 	annotationProcessor 'org.projectlombok:lombok'
 
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-	testImplementation 'org.springframework.security:spring-security-test'
+	testImplementation 'org.testcontainers:junit-jupiter'
+	testRuntimeOnly 'com.h2database:h2'
+}
+
+apply plugin: 'com.google.cloud.tools.jib'
+jib {
+	from.image = 'gcr.io/distroless/java17-debian12'
+	to.image = 'auth-service'
+	container {
+		creationTime = "USE_CURRENT_TIMESTAMP"
+		mainClass = 'com.finx.lending.los.LosServiceApplication'
+	}
 }
 

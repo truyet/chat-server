@@ -19,4 +19,5 @@ public class MessageResp {
   private String message;
   private MessageType type;
   private long createdAt;
+  private long deletedAt;
 }

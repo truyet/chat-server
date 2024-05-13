@@ -6,6 +6,8 @@ import io.exam.chat.domain.Message;
 import io.exam.chat.repositories.MessageRepository;
 import java.time.ZonedDateTime;
 import java.util.List;
+
+import io.exam.errors.ServiceException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.PageRequest;
@@ -29,6 +31,20 @@ public class MessageService {
     var info = UserContext.getUser();
     var message = Message.builder().message(msg).senderId(info.getUserId()).senderName(info.getUsername()).type(type).room(room).createdAt(ZonedDateTime.now()).build();
     return messageRepository.save(message);
+  }
+
+  public Message delete(Long msgId) {
+    var info = UserContext.getUser();
+    var msg = messageRepository.findById(msgId);
+    if (msg.isPresent()) {
+      var message = msg.get();
+      if (message.getSenderId() == info.getUserId()) {
+        message.setDeletedAt(ZonedDateTime.now());
+        return messageRepository.save(message);
+      }
+      throw new ServiceException("MESSAGE_NOT_OWNED");
+    }
+    throw new ServiceException("MESSAGE_NOT_FOUND");
   }
 
   public List<Message> historiesDefaultRoom(ZonedDateTime fromTime, int size) {

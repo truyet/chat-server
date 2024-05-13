@@ -34,5 +34,6 @@ public class Message {
   private MessageType type;
 
   private ZonedDateTime createdAt;
+  private ZonedDateTime deletedAt;
 
 }
